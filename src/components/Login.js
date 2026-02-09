@@ -4,10 +4,12 @@ import netflix from "../assets/netflix.jpg"
 import { checkValidData } from '../utils/validate'
 import { createUserWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../utils/firebase"
+import { signInWithEmailAndPassword } from "firebase/auth"
 
 const Login = () => {
 
     const [errorMessages, setErrorMessages] = useState({ email: null, password: null, name: null });
+
     const [signUpForm, setIsSingUPForm] = useState(false);
 
     const name = useRef(null);
@@ -20,32 +22,38 @@ const Login = () => {
 
     const handleClick = (e) => {
         e.preventDefault();
+
         const nameValue = name.current?.value;
         const emailValue = email.current?.value;
         const passwordValue = password.current?.value;
 
-        console.log("Email:", emailValue);
-        console.log("Password:", passwordValue);
-
         const errors = checkValidData(emailValue, passwordValue, nameValue);
         setErrorMessages(errors);
-        if (errors) return;
+
+        if (errors.email || errors.password || errors.name) return;
 
         if (signUpForm) {
-            createUserWithEmailAndPassword(auth, email, password)
+            // SIGN UP
+            createUserWithEmailAndPassword(auth, emailValue, passwordValue)
                 .then((userCredential) => {
-                    // Signed up 
-                    const user = userCredential.user;
-                    // ...
+                    console.log("User Signed Up:", userCredential.user);
                 })
                 .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    // ..
+                    console.log(error);
                 });
-        }
-        if (!signUpForm) {
-            //sign in logic
+        } else {
+            // SIGN IN
+            signInWithEmailAndPassword(auth, emailValue, passwordValue)
+                .then((userCredential) => {
+                    console.log("User Signed In:", userCredential.user);
+                })
+                .catch((error) => {
+                    console.log(error);
+                    setErrorMessages((prev) => ({
+                        ...prev,
+                        email: "Invalid email or password. Please try again."
+                    }));
+                });
         }
     };
 
@@ -125,7 +133,7 @@ const Login = () => {
 
         </div>
     )
-}
 
+};
 export default Login
 
