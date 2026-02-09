@@ -74,6 +74,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
                  -- Login/ signup page
                      -sigin and signup form up form
                      - click submit it will take you to the browse page
+                     - Routing
+                     -Form validation
 
                  --Browse page [After Authentication]
                      -Header
