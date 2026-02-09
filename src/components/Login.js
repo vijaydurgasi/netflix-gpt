@@ -1,12 +1,15 @@
 import React, { useRef, useState } from 'react'
-import Header from './Header'
+// import Header from './Header'
 import netflix from "../assets/netflix.jpg"
 import { checkValidData } from '../utils/validate'
 import { createUserWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../utils/firebase"
 import { signInWithEmailAndPassword } from "firebase/auth"
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
+
+    const navigate = useNavigate();
 
     const [errorMessages, setErrorMessages] = useState({ email: null, password: null, name: null });
 
@@ -36,18 +39,22 @@ const Login = () => {
             // SIGN UP
             createUserWithEmailAndPassword(auth, emailValue, passwordValue)
                 .then((userCredential) => {
+                    navigate("/browse")
                     console.log("User Signed Up:", userCredential.user);
                 })
                 .catch((error) => {
+                    navigate("/")
                     console.log(error);
                 });
         } else {
             // SIGN IN
             signInWithEmailAndPassword(auth, emailValue, passwordValue)
                 .then((userCredential) => {
+                    navigate("/browse")
                     console.log("User Signed In:", userCredential.user);
                 })
                 .catch((error) => {
+                    navigate("/")
                     console.log(error);
                     setErrorMessages((prev) => ({
                         ...prev,
@@ -69,7 +76,7 @@ const Login = () => {
                 <div className="absolute inset-0 bg-black/50"></div>
             </div>
 
-            <Header />
+            {/* <Header /> */}
 
             <div className="flex justify-center items-center h-full ml-2">
                 <div className="bg-black/75 p-12 rounded-md w-full max-w-md">
