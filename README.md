@@ -89,3 +89,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
                  --Netflix-gpt
                      -search bar
                         -movie suggestions
+
+                        API = cbc9123fe92e859ffd7450577578e8a4
+
+                        API token =  eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYmM5MTIzZmU5MmU4NTlmZmQ3NDUwNTc3NTc4ZThhNCIsIm5iZiI6MTc3MDcxMTA3NC43MzQwMDAyLCJzdWIiOiI2OThhZTgyMmMyN2FhZmUxZWU4ZWY5ZGEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.Oyv8ZDkd_AVEQmxHO-ASLXl6rKNbzQIm60smAzelqpw
