@@ -10,13 +10,14 @@ const MainContainer = () => {
 
     const mainmovie = movies[0];
     console.log("main-movie", mainmovie);
-    return (
-        <div>
-            <VideoTitle />
-            <VideoBackground />
-        </div>
 
-    )
+    const { original_title, overview } = mainmovie
+    return (
+        <div className="relative w-screen h-screen overflow-hidden bg-black">
+            <VideoBackground />
+            <VideoTitle title={original_title} overview={overview} />
+        </div>
+    );
 }
 
 export default MainContainer

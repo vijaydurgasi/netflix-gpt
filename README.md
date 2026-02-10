@@ -93,3 +93,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
                         API = cbc9123fe92e859ffd7450577578e8a4
 
                         API token =  eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYmM5MTIzZmU5MmU4NTlmZmQ3NDUwNTc3NTc4ZThhNCIsIm5iZiI6MTc3MDcxMTA3NC43MzQwMDAyLCJzdWIiOiI2OThhZTgyMmMyN2FhZmUxZWU4ZWY5ZGEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.Oyv8ZDkd_AVEQmxHO-ASLXl6rKNbzQIm60smAzelqpw
+
+
+
+ Video API for trailer in the same TMDB
+ and we need youtube key if we enter the id on the TMDB it shows a reponce then it has a type trailer and key for youtube 

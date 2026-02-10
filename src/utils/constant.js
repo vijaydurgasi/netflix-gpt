@@ -10,5 +10,6 @@ export const TMDB_API = {
 
 export const API_KEY = "cbc9123fe92e859ffd7450577578e8a4";
 
-export const NOW_PLAYING_API =
-    `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=en-US&page=1`;
+export const NOW_PLAYING_API = `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=en-US&page=1`;
+
+export const VIDEO_TRAILER_API = (movieid) => `https://api.themoviedb.org/3/movie/${movieid}/videos?api_key=${API_KEY}`;
