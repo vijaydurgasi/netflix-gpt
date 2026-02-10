@@ -1,29 +1,38 @@
-import React, { useRef, useState } from 'react'
-// import Header from './Header'
-import netflix from "../assets/netflix.jpg"
-import { checkValidData } from '../utils/validate'
-import { createUserWithEmailAndPassword } from "firebase/auth"
-import { auth } from "../utils/firebase"
-import { signInWithEmailAndPassword } from "firebase/auth"
-import { useNavigate } from 'react-router-dom'
+import React, { useRef, useState, useEffect } from "react";
+import netflix from "../assets/netflix.jpg";
+import { checkValidData } from "../utils/validate";
+import { auth } from "../utils/firebase";
+import {
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    updateProfile,
+} from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Login = () => {
-
     const navigate = useNavigate();
+    const user = useSelector((store) => store.user);
 
-    const [errorMessages, setErrorMessages] = useState({ email: null, password: null, name: null });
+    const [errorMessages, setErrorMessages] = useState({
+        email: null,
+        password: null,
+        name: null,
+    });
 
-    const [signUpForm, setIsSingUPForm] = useState(false);
+    const [signUpForm, setIsSignUpForm] = useState(false);
 
     const name = useRef(null);
     const email = useRef(null);
     const password = useRef(null);
 
-    const toggleSignUpForm = () => {
-        setIsSingUPForm(!signUpForm);
-    };
+    useEffect(() => {
+        if (user) {
+            navigate("/browse");
+        }
+    }, [user, navigate]);
 
-    const handleClick = (e) => {
+    const handleClick = async (e) => {
         e.preventDefault();
 
         const nameValue = name.current?.value;
@@ -35,112 +44,100 @@ const Login = () => {
 
         if (errors.email || errors.password || errors.name) return;
 
-        if (signUpForm) {
-            // SIGN UP
-            createUserWithEmailAndPassword(auth, emailValue, passwordValue)
-                .then((userCredential) => {
-                    navigate("/browse")
-                    console.log("User Signed Up:", userCredential.user);
-                })
-                .catch((error) => {
-                    navigate("/")
-                    console.log(error);
+        try {
+            if (signUpForm) {
+                const userCredential = await createUserWithEmailAndPassword(
+                    auth,
+                    emailValue,
+                    passwordValue
+                );
+
+                await updateProfile(userCredential.user, {
+                    displayName: nameValue,
                 });
-        } else {
-            // SIGN IN
-            signInWithEmailAndPassword(auth, emailValue, passwordValue)
-                .then((userCredential) => {
-                    navigate("/browse")
-                    console.log("User Signed In:", userCredential.user);
-                })
-                .catch((error) => {
-                    navigate("/")
-                    console.log(error);
-                    setErrorMessages((prev) => ({
-                        ...prev,
-                        email: "Invalid email or password. Please try again."
-                    }));
-                });
+            } else {
+                await signInWithEmailAndPassword(
+                    auth,
+                    emailValue,
+                    passwordValue
+                );
+            }
+
+            navigate("/browse");
+        } catch (error) {
+            setErrorMessages((prev) => ({
+                ...prev,
+                email: "Invalid email or password.",
+            }));
         }
     };
 
     return (
         <div className="relative h-screen w-full text-white">
-
             <div className="absolute inset-0 -z-10">
                 <img
                     src={netflix}
                     alt="background"
                     className="w-full h-full object-cover brightness-110"
                 />
-                <div className="absolute inset-0 bg-black/50"></div>
+                <div className="absolute inset-0 bg-black/60"></div>
             </div>
 
-            {/* <Header /> */}
-
-            <div className="flex justify-center items-center h-full ml-2">
+            <div className="flex justify-center items-center h-full">
                 <div className="bg-black/75 p-12 rounded-md w-full max-w-md">
-
-                    <h1 className="text-3xl font-bold mb-8">{signUpForm ? "sign Up" : "sign In"}</h1>
+                    <h1 className="text-3xl font-bold mb-8">
+                        {signUpForm ? "Sign Up" : "Sign In"}
+                    </h1>
 
                     <form className="flex flex-col gap-4">
-
-                        {signUpForm && <input
-                            ref={name}
-                            type="text"
-                            placeholder="Name"
-                            className="p-4 bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600"
-
-                        />}
+                        {signUpForm && (
+                            <input
+                                ref={name}
+                                type="text"
+                                placeholder="Name"
+                                className="p-4 bg-gray-700 rounded-md"
+                            />
+                        )}
 
                         <input
                             ref={email}
                             type="text"
-                            autoComplete="current-email"
-                            placeholder="Email or phone number"
-                            className="p-4 bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600"
+                            placeholder="Email"
+                            className="p-4 bg-gray-700 rounded-md"
                         />
 
                         <input
                             ref={password}
                             type="password"
-                            autoComplete="current-password"
                             placeholder="Password"
-                            className="p-4 bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600"
+                            className="p-4 bg-gray-700 rounded-md"
                         />
 
-                        {errorMessages.name && <p className='text-red-500'>{errorMessages.name}</p>}
-                        {errorMessages.email && <p className='text-red-500'>{errorMessages.email}</p>}
-                        {errorMessages.password && <p className='text-red-500'>{errorMessages.password}</p>}
-
+                        {errorMessages.email && (
+                            <p className="text-red-500">{errorMessages.email}</p>
+                        )}
 
                         <button
-                            type="submit"
-                            className="bg-red-600 hover:bg-red-700 transition duration-200 p-3 rounded-md font-semibold mt-4"
-
                             onClick={handleClick}
+                            className="bg-red-600 hover:bg-red-700 p-3 rounded-md mt-4"
                         >
-                            {signUpForm ? "sign Up" : "sign In"}
+                            {signUpForm ? "Sign Up" : "Sign In"}
                         </button>
 
-                        <p className="text-gray-400 text-sm mt-4 text-center hover:underline cursor-pointer">
-                            Forgot password?
-                        </p>
-
                         <div className="text-gray-400 text-sm mt-6">
-                            {signUpForm ? "Already a user sign In" : "New to Netflix sign Up"} {""}
-                            <span onClick={toggleSignUpForm} className="text-white hover:underline cursor-pointer">
-                                {signUpForm ? "sign In" : "sign Up"}
+                            {signUpForm ? "Already a user?" : "New to Netflix?"}
+                            <span
+                                onClick={() => setIsSignUpForm(!signUpForm)}
+                                className="text-white cursor-pointer ml-1"
+                            >
+                                {signUpForm ? "Sign In" : "Sign Up"}
                             </span>
                         </div>
-
                     </form>
                 </div>
             </div>
-
         </div>
-    )
-
+    );
 };
-export default Login
 
+export default Login;
