@@ -83,6 +83,10 @@ const Login = () => {
                 <div className="absolute inset-0 bg-black/60"></div>
             </div>
 
+            <h1 className="text-[#E50914] text-3xl font-extrabold ">
+                NETFLIX
+            </h1>
+
             <div className="flex justify-center items-center h-full">
                 <div className="bg-black/75 p-12 rounded-md w-full max-w-md">
                     <h1 className="text-3xl font-bold mb-8">

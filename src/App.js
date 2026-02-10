@@ -5,6 +5,7 @@ import Login from "./components/Login";
 import Browse from "./components/Browse";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Body from "./components/Body";
+import { Navigate } from "react-router-dom";
 
 const appRouter = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const appRouter = createBrowserRouter([
       </ProtectedRoute>
     ),
   },
+  {
+    path: "*",
+    element: <Navigate to="/" replace />,
+  }
 ]);
 
 function App() {
