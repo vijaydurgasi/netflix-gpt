@@ -9,15 +9,8 @@ const Browse = () => {
     useNowPlayingMovies();
 
     return (
-        <div className="bg-black min-h-screen text-white">
+        <div className="relative w-screen bg-black text-white overflow-x-hidden">
             <Header />
-
-            <div className="">
-
-                <h1 className="text-3xl font-bold text-center">
-                    Welcome to Netflix 🎬
-                </h1>
-            </div>
             <MainContainer />
             <SecondaryContainer />
         </div>
