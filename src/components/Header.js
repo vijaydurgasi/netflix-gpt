@@ -1,11 +1,18 @@
 import React from "react";
 import { signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import userlogo from "../assets/userlogo.jpg";
+import { toggleGptsearchView } from "../utils/GptSlice";
+import { changeLanguage } from "../utils/languageSlice";
 
 const Header = () => {
+
+    const dispatch = useDispatch();
+
     const user = useSelector((store) => store.user);
+
+    const currentLang = useSelector(store => store.language.lang);
 
     const handleSignOut = async () => {
         try {
@@ -14,6 +21,10 @@ const Header = () => {
             console.error(error);
         }
     };
+
+    const handleGptSearchClick = () => {
+        dispatch(toggleGptsearchView());
+    }
 
 
     return (
@@ -25,6 +36,12 @@ const Header = () => {
                 </h1>
 
                 <div className="flex items-center gap-5">
+
+                    <button className="bg-blue-600 hover:bg-red-700 px-4 py-2 rounded-md text-sm font-semibold transition"
+                        onClick={handleGptSearchClick}
+                    >GPT
+                    </button>
+
                     <p className="text-white text-sm drop-shadow-md">
                         {user?.displayName || "User"}
                     </p>
@@ -41,6 +58,17 @@ const Header = () => {
                     >
                         Sign Out
                     </button>
+
+                    <select
+                        value={currentLang}
+                        onChange={(e) => dispatch(changeLanguage(e.target.value))}
+                        className="bg-black text-white border border-gray-600 rounded px-2 py-1"
+                    >
+                        <option value="en">English</option>
+                        <option value="hi">Hindi</option>
+                        <option value="te">Telugu</option>
+                    </select>
+
                 </div>
 
             </div>

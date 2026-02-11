@@ -24,3 +24,6 @@ const Body = () => {
 };
 
 export default Body;
+
+// Body has a logic of sign in and signout so even it does not render anything its listens to store so that our sig out
+// works in Browse page in Header

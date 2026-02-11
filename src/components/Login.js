@@ -80,7 +80,7 @@ const Login = () => {
                     alt="background"
                     className="w-full h-full object-cover brightness-110"
                 />
-                <div className="absolute inset-0 bg-black/60"></div>
+                <div className="absolute inset-0 bg-black/30"></div>
             </div>
 
             <h1 className="text-[#E50914] text-3xl font-extrabold ">
