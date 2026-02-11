@@ -1,13 +1,20 @@
 import { useSelector } from "react-redux";
 import languageConstants from "../utils/languageConstants";
+import { useState } from "react";
 
 const GptSearchBar = () => {
 
+    const [query, setQuery] = useState("");
+
     const lang = useSelector(store => store.language.lang);
+
     const text = languageConstants[lang];
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (!query) return;
+
     };
 
     return (
@@ -26,21 +33,24 @@ const GptSearchBar = () => {
 
                     <input
                         type="text"
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
                         placeholder={text.searchPlaceholder}
                         className="flex-1 bg-zinc-800 text-white px-5 py-4 rounded-lg outline-none focus:ring-2 focus:ring-red-600 transition"
                     />
 
                     <button
                         type="submit"
+
                         className="
                             bg-red-600 hover:bg-red-700 active:bg-red-800 active:scale-95 transition
-                            duration-150 ease-in-out px-6 py-4 text-white font-semibold rounded-lg shadow-lg active:shadow-inner"
+                            duration-150 ease-in-out px-6 py-4 text-white font-semibold rounded-lg shadow-lg active:shadow-inner disabled:opacity-50
+                        "
                     >
                         {text.searchButton}
                     </button>
 
                 </div>
-
             </form>
 
         </div>

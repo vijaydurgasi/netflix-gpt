@@ -4,7 +4,7 @@ export const TMDB_API = {
     method: "GET",
     headers: {
         accept: "application/json",
-        Authorization: "eyJhdWQiOiJjYmM5MTIzZmU5MmU4NTlmZmQ3NDUwNTc3NTc4ZThhNCIsIm5iZiI6MTc3MDcxMTA3NC43MzQwMDAyLCJzdWIiOiI2OThhZTgyMmMyN2FhZmUxZWU4ZWY5ZGEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.Oyv8ZDkd_AVEQmxHO-ASLXl6rKNbzQIm60smAzelqpw"
+        Authorization: "Bearer eyJhdWQiOiJjYmM5MTIzZmU5MmU4NTlmZmQ3NDUwNTc3NTc4ZThhNCIsIm5iZiI6MTc3MDcxMTA3NC43MzQwMDAyLCJzdWIiOiI2OThhZTgyMmMyN2FhZmUxZWU4ZWY5ZGEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.Oyv8ZDkd_AVEQmxHO-ASLXl6rKNbzQIm60smAzelqpw"
     },
 };
 
