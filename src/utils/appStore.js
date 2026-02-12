@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit"
 import userSlice from "./userSlice"
 import moviesReducer from "./movieSlice"
-import gptReducer from "./GptSlice"
+import gptReducer from "./gptSlice"
 import languageReducer from "./languageSlice"
 
 const appStore = configureStore(

@@ -1,6 +1,11 @@
 import { useSelector } from "react-redux";
 import languageConstants from "../utils/languageConstants";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addGptResults } from "../utils/gptSlice";
+import mockMovies from "../utils/mockMovies";
+
+
 
 const GptSearchBar = () => {
 
@@ -10,15 +15,39 @@ const GptSearchBar = () => {
 
     const text = languageConstants[lang];
 
+    const dispatch = useDispatch();
+    const gptResults = useSelector(store => store.gpt.gptResults);
+
+    // console.log("Redux value:", gptResults);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!query) return;
+        if (!query.trim()) return;
+
+        const filteredMovies = mockMovies.filter((movie) => movie.genre.toLowerCase().includes(query.toLowerCase()) ||
+            movie.title.toLowerCase().includes(query.toLowerCase()));
+        console.log("filtered Movies", filteredMovies);
+
+        if (filteredMovies.length === 0) {
+            dispatch(
+                addGptResults(
+                    `I couldn't find movies related to "${query}". Try another genre or title.`
+                )
+            );
+            return;
+        }
+        const responseText = `Based on your interest in "${query}", here are some movies you might enjoy:\n\n${filteredMovies
+            .map((movie) => "• " + movie.title)
+            .join("\n")}`;
+
+        console.log("response Movies = ", responseText);
+
+        dispatch(addGptResults(responseText));
 
     };
 
     return (
-        <div className="flex justify-center items-center min-h-[60vh] px-4">
+        <div className="flex flex-col items-center px-4 pt-24">
 
             <form
                 onSubmit={handleSubmit}
@@ -52,6 +81,13 @@ const GptSearchBar = () => {
 
                 </div>
             </form>
+            {gptResults && (
+                <div className="mt-6 w-full max-w-3xl bg-zinc-800 p-6 rounded-xl text-white whitespace-pre-line">
+                    {gptResults}
+                </div>
+            )}
+
+
 
         </div>
     );

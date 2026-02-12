@@ -1,11 +1,10 @@
 import React from 'react'
 import GptSearchBar from './GptSearchBar'
-import GptMovieSuggestions from './GptMovieSuggestions'
 import netflix from "../assets/netflix.jpg"
 
 const GptSearch = () => {
     return (
-        <div className="relative min-h-screen w-screen text-white overflow-hidden">
+        <div className="relative min-h-screen w-screen text-white">
             <img
                 src={netflix}
                 alt="background"
@@ -17,7 +16,6 @@ const GptSearch = () => {
 
             <div className="relative z-10">
                 <GptSearchBar />
-                <GptMovieSuggestions />
             </div>
 
         </div>
