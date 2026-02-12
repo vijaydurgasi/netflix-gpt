@@ -59,6 +59,7 @@ const GptSearchBar = () => {
             ...mockMovies,
         ];
 
+
         const uniqueMovies = Array.from(
             new Map(allMovies.map((movie) => [movie.id, movie])).values()
         );
@@ -93,6 +94,7 @@ const GptSearchBar = () => {
                 `${index + 1}. ${movie.title}\n   ${movie.overview || "No description available."}\n`
             )
             .join("\n")}`;
+
 
         dispatch(addGptResults(responseText));
     };
