@@ -78,7 +78,7 @@ const Login = () => {
                 <img
                     src={netflix}
                     alt="background"
-                    className="w-full h-full object-cover brightness-110"
+                    className="w-full h-full object-cover brightness-125"
                 />
                 <div className="absolute inset-0 bg-black/30"></div>
             </div>

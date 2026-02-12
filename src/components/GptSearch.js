@@ -12,7 +12,7 @@ const GptSearch = () => {
              brightness-125 contrast-110 saturate-110"
             />
 
-            <div className="absolute inset-0 bg-black/50"></div>
+            <div className="absolute inset-0 bg-black/30"></div>
 
             <div className="relative z-10">
                 <GptSearchBar />

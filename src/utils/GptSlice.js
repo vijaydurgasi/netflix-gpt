@@ -12,10 +12,13 @@ const gptSlice = createSlice({
         },
         addGptResults: (state, action) => {
             state.gptResults = action.payload;
-        }
+        },
+        clearGptResults: (state) => {
+            state.gptResults = null;
+        },
     },
 });
 
 
-export const { toggleGptsearchView, addGptResults } = gptSlice.actions;
+export const { toggleGptsearchView, addGptResults, clearGptResults } = gptSlice.actions;
 export default gptSlice.reducer

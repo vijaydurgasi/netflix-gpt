@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import userlogo from "../assets/userlogo.jpg";
 import { toggleGptsearchView } from "../utils/gptSlice";
 import { changeLanguage } from "../utils/languageSlice";
+import { clearGptResults } from "../utils/gptSlice";
 
 const Header = () => {
 
@@ -20,6 +21,7 @@ const Header = () => {
         } catch (error) {
             console.error(error);
         }
+        dispatch(clearGptResults());
     };
 
     const handleGptSearchClick = () => {
