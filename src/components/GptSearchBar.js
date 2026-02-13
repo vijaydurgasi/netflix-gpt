@@ -84,8 +84,8 @@ const GptSearchBar = () => {
     };
 
     return (
-        <div className="flex flex-col items-center px-4 pt-24 pb-24">
-            <div className="w-full max-w-3xl bg-zinc-900 border border-zinc-700 rounded-2xl p-6 shadow-2xl">
+        <div className=" flex flex-col items-center px-4 pt-24 pb-24">
+            <div className=" w-full max-w-3xl bg-zinc-900 border border-zinc-700 rounded-2xl p-6 shadow-2xl">
                 <h2 className="text-2xl font-semibold text-white mb-4">
                     {text.aiTitle}
                 </h2>

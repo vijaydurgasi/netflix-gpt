@@ -8,7 +8,7 @@ const GptSearch = () => {
             <img
                 src={netflix}
                 alt="background"
-                className="absolute inset-0 w-full h-full object-cover 
+                className="fixed inset-0 w-full h-full object-cover 
              brightness-125 contrast-110 saturate-110"
             />
 

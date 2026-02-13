@@ -1,14 +1,13 @@
 
-
 export const TMDB_API = {
     method: "GET",
     headers: {
         accept: "application/json",
-        Authorization: "Bearer eyJhdWQiOiJjYmM5MTIzZmU5MmU4NTlmZmQ3NDUwNTc3NTc4ZThhNCIsIm5iZiI6MTc3MDcxMTA3NC43MzQwMDAyLCJzdWIiOiI2OThhZTgyMmMyN2FhZmUxZWU4ZWY5ZGEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.Oyv8ZDkd_AVEQmxHO-ASLXl6rKNbzQIm60smAzelqpw"
+        Authorization: "Bearer " + process.env.REACT_APP_TOKEN,
     },
 };
 
-export const API_KEY = "cbc9123fe92e859ffd7450577578e8a4";
+export const API_KEY = process.env.REACT_APP_API;
 
 export const BASE_URL = "https://api.themoviedb.org/3";
 
