@@ -15,6 +15,8 @@ const Header = () => {
 
     const currentLang = useSelector(store => store.language.lang);
 
+    const showGptSearch = useSelector(store => store.gpt.showGptSearch);
+
     const handleSignOut = async () => {
         try {
             await signOut(auth);
@@ -31,51 +33,56 @@ const Header = () => {
 
     return (
         <div className="fixed top-0 left-0 w-full z-50">
-            <div className="flex justify-between items-center px-12 py-6 backdrop-blur-sm">
+            <div className="flex justify-between items-center h-16 md:h-20 px-4 md:px-12 backdrop-blur-sm">
 
-                <h1 className="text-[#E50914] text-4xl font-extrabold tracking-wide drop-shadow-lg">
+                <h1 className="text-[#E50914] text-2xl md:text-4xl font-extrabold tracking-wide drop-shadow-lg">
                     NETFLIX
                 </h1>
 
-                <div className="flex items-center gap-5">
+                <div className="flex flex-wrap items-center gap-3 md:gap-5">
 
-                    <button className="bg-blue-600 hover:bg-red-700 px-4 py-2 rounded-md text-sm font-semibold transition"
+                    <button
+                        className="bg-blue-600 hover:bg-red-700 px-3 md:px-4 py-1.5 md:py-2 rounded-md text-xs md:text-sm font-semibold transition"
                         onClick={handleGptSearchClick}
-                    >GPT
+                    >
+                        GPT
                     </button>
 
-                    <p className="text-white text-sm drop-shadow-md">
+                    <p className="text-white text-xs md:text-sm drop-shadow-md hidden sm:block">
                         {user?.displayName || "User"}
                     </p>
 
                     <img
                         src={userlogo}
                         alt="user"
-                        className="w-9 h-9 rounded-md"
+                        className="w-7 h-7 md:w-9 md:h-9 rounded-md"
                     />
 
                     <button
                         onClick={handleSignOut}
-                        className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-md text-sm font-semibold transition"
+                        className="bg-red-600 hover:bg-red-700 px-3 md:px-4 py-1.5 md:py-2 rounded-md text-xs md:text-sm font-semibold transition"
                     >
                         Sign Out
                     </button>
 
-                    <select
-                        value={currentLang}
-                        onChange={(e) => dispatch(changeLanguage(e.target.value))}
-                        className="bg-black text-white border border-gray-600 rounded px-2 py-1"
-                    >
-                        <option value="en">English</option>
-                        <option value="hi">Hindi</option>
-                        <option value="te">Telugu</option>
-                    </select>
+                    {showGptSearch && (
+                        <select
+                            value={currentLang}
+                            onChange={(e) => dispatch(changeLanguage(e.target.value))}
+                            className="bg-black text-white border border-gray-600 rounded px-1 md:px-2 py-1 text-xs md:text-sm"
+                        >
+                            <option value="en">English</option>
+                            <option value="hi">Hindi</option>
+                            <option value="te">Telugu</option>
+                        </select>
+                    )}
 
                 </div>
 
             </div>
         </div>
     );
+
 };
 
 export default Header;

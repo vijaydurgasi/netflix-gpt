@@ -107,7 +107,7 @@ const Login = () => {
                             ref={email}
                             type="text"
                             placeholder="Email"
-                            className="p-4 bg-gray-700 rounded-md"
+                            className="w-full p-3 sm:p-4 bg-gray-700 rounded-md"
                         />
 
                         <input

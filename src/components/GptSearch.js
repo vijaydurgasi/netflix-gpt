@@ -4,12 +4,16 @@ import netflix from "../assets/netflix.jpg"
 
 const GptSearch = () => {
     return (
-        <div className="relative min-h-screen w-screen text-white">
+        <div className="relative min-h-screen w-full text-white overflow-x-hidden">
+
             <img
                 src={netflix}
                 alt="background"
                 className="fixed inset-0 w-full h-full object-cover 
-             brightness-125 contrast-110 saturate-110"
+                brightness-110 md:brightness-125 
+                contrast-105 md:contrast-110 
+                saturate-105 md:saturate-110"
+
             />
 
             <div className="absolute inset-0 bg-black/30"></div>

@@ -90,7 +90,8 @@ const GptSearchBar = () => {
                     {text.aiTitle}
                 </h2>
 
-                <div className="flex gap-4">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+
                     <input
                         type="text"
                         value={query}
@@ -99,12 +100,13 @@ const GptSearchBar = () => {
                             setHasSearched(false);
                         }}
                         placeholder={text.searchPlaceholder}
-                        className="flex-1 bg-zinc-800 text-white px-5 py-4 rounded-lg outline-none focus:ring-2 focus:ring-red-600 transition"
+                        className="w-full sm:flex-1 bg-zinc-800 text-white px-4 sm:px-5 py-3 sm:py-4 rounded-lg outline-none focus:ring-2 focus:ring-red-600 transition"
                     />
 
                     <button
                         onClick={handleSearchClick}
-                        className="bg-red-600 hover:bg-red-700 active:bg-red-800 transition px-6 py-4 text-white font-semibold rounded-lg"
+                        className="w-full sm:w-auto bg-red-600 hover:bg-red-700 active:bg-red-800 transition px-4 sm:px-6 py-3 sm:py-4 text-white font-semibold rounded-lg"
+
                     >
                         {text.searchButton}
                     </button>
