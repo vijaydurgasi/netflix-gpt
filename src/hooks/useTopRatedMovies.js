@@ -6,15 +6,16 @@ import { TOP_RATED_API } from "../utils/constant";
 const useTopRatedMovies = () => {
     const dispatch = useDispatch();
 
-    const getMovies = async () => {
-        const data = await fetch(TOP_RATED_API);
-        const json = await data.json();
-        dispatch(addTopRatedMovies(json.results));
-    };
+
 
     useEffect(() => {
+        const getMovies = async () => {
+            const data = await fetch(TOP_RATED_API);
+            const json = await data.json();
+            dispatch(addTopRatedMovies(json.results));
+        };
         getMovies();
-    }, []);
+    }, [dispatch]);
 };
 
 export default useTopRatedMovies;

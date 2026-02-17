@@ -6,15 +6,16 @@ import { TRENDING_API } from "../utils/constant";
 const useTrendingMovies = () => {
     const dispatch = useDispatch();
 
-    const getMovies = async () => {
-        const data = await fetch(TRENDING_API);
-        const json = await data.json();
-        dispatch(addTrendingMovies(json.results));
-    };
+
 
     useEffect(() => {
+        const getMovies = async () => {
+            const data = await fetch(TRENDING_API);
+            const json = await data.json();
+            dispatch(addTrendingMovies(json.results));
+        };
         getMovies();
-    }, []);
+    }, [dispatch]);
 };
 
 export default useTrendingMovies;
