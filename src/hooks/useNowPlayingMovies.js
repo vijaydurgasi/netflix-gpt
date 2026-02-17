@@ -10,6 +10,8 @@ const useNowPlayingMovies = () => {
             try {
                 const response = await fetch("/api/now-playing");
                 const data = await response.json();
+                console.log("NOW PLAYING DATA:", data);
+
                 dispatch(addNowPlayingMovies(data.results));
             } catch (error) {
                 console.error("Failed to fetch now playing movies", error);
@@ -18,6 +20,7 @@ const useNowPlayingMovies = () => {
 
         getNowPlayingMovies();
     }, [dispatch]);
+
 };
 
 export default useNowPlayingMovies;
