@@ -1,20 +1,22 @@
-import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 import { addPopularMovies } from "../utils/movieSlice";
-import { POPULAR_API } from "../utils/constant";
 
 const usePopularMovies = () => {
     const dispatch = useDispatch();
 
-
-
     useEffect(() => {
-        const getMovies = async () => {
-            const data = await fetch(POPULAR_API);
-            const json = await data.json();
-            dispatch(addPopularMovies(json.results));
+        const getPopularMovies = async () => {
+            try {
+                const response = await fetch("/api/popular");
+                const data = await response.json();
+                dispatch(addPopularMovies(data.results));
+            } catch (error) {
+                console.error("Failed to fetch popular movies", error);
+            }
         };
-        getMovies();
+
+        getPopularMovies();
     }, [dispatch]);
 };
 

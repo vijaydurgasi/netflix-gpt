@@ -1,20 +1,22 @@
-import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 import { addUpcomingMovies } from "../utils/movieSlice";
-import { UPCOMING_API } from "../utils/constant";
 
 const useUpcomingMovies = () => {
     const dispatch = useDispatch();
 
-
-
     useEffect(() => {
-        const getMovies = async () => {
-            const data = await fetch(UPCOMING_API);
-            const json = await data.json();
-            dispatch(addUpcomingMovies(json.results));
+        const getUpcomingMovies = async () => {
+            try {
+                const response = await fetch("/api/upcoming");
+                const data = await response.json();
+                dispatch(addUpcomingMovies(data.results));
+            } catch (error) {
+                console.error("Failed to fetch upcoming movies", error);
+            }
         };
-        getMovies();
+
+        getUpcomingMovies();
     }, [dispatch]);
 };
 

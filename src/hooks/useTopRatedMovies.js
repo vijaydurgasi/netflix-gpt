@@ -1,20 +1,22 @@
-import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 import { addTopRatedMovies } from "../utils/movieSlice";
-import { TOP_RATED_API } from "../utils/constant";
 
 const useTopRatedMovies = () => {
     const dispatch = useDispatch();
 
-
-
     useEffect(() => {
-        const getMovies = async () => {
-            const data = await fetch(TOP_RATED_API);
-            const json = await data.json();
-            dispatch(addTopRatedMovies(json.results));
+        const getTopRatedMovies = async () => {
+            try {
+                const response = await fetch("/api/top-rated");
+                const data = await response.json();
+                dispatch(addTopRatedMovies(data.results));
+            } catch (error) {
+                console.error("Failed to fetch top rated movies", error);
+            }
         };
-        getMovies();
+
+        getTopRatedMovies();
     }, [dispatch]);
 };
 

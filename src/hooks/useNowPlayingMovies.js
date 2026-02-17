@@ -1,22 +1,23 @@
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { NOW_PLAYING_API } from "../utils/constant";
 import { addNowPlayingMovies } from "../utils/movieSlice";
 
 const useNowPlayingMovies = () => {
-
     const dispatch = useDispatch();
 
     useEffect(() => {
         const getNowPlayingMovies = async () => {
-            const data = await fetch(NOW_PLAYING_API);
-            const json = await data.json();
-            dispatch(addNowPlayingMovies(json.results));
+            try {
+                const response = await fetch("/api/now-playing");
+                const data = await response.json();
+                dispatch(addNowPlayingMovies(data.results));
+            } catch (error) {
+                console.error("Failed to fetch now playing movies", error);
+            }
         };
 
         getNowPlayingMovies();
     }, [dispatch]);
-
 };
 
 export default useNowPlayingMovies;

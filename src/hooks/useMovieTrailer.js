@@ -1,30 +1,33 @@
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { addTrailerVideo } from "../utils/movieSlice";
-import { VIDEO_TRAILER_API } from "../utils/constant";
 
-const useMovieTrailer = () => {
+const useMovieTrailer = (movieid) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
         const getMovieVideo = async () => {
-            const movieid = 840464;
-            const data = await fetch(VIDEO_TRAILER_API(movieid));
-            const json = await data.json();
+            try {
+                const response = await fetch(`/api/trailer?id=${movieid}`);
+                const data = await response.json();
 
-            const filterData = json.results.filter(
-                (video) => video.type === "Trailer"
-            );
+                const filterData = data.results?.filter(
+                    (video) => video.type === "Trailer"
+                );
 
-            const trailer = filterData.length
-                ? filterData[0]
-                : json.results[0];
+                const trailer =
+                    filterData?.length > 0 ? filterData[0] : data.results?.[0];
 
-            dispatch(addTrailerVideo(trailer));
+                dispatch(addTrailerVideo(trailer));
+            } catch (error) {
+                console.error("Failed to fetch trailer", error);
+            }
         };
 
-        getMovieVideo();
-    }, [dispatch]);
+        if (movieid) {
+            getMovieVideo();
+        }
+    }, [dispatch, movieid]);
 };
 
 export default useMovieTrailer;
